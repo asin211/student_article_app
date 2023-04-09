@@ -1,0 +1,28 @@
+{% extends 'base.html' %} 
+{% block title %}Add Article{% endblock title %}   
+{% block content %}
+
+<div class="container min-vh-100 my-5">
+    <h2 class="m-4"><i>Add Article</i></h2>
+    <form class="mx-4" method="post" action="">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="category_id" class="form-label fs-5"><i>Select Category</i></label>
+            {{form.category_id}}
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label fs-5"><i>Title</i></label>
+            {{form.title}}
+        </div>
+        <div class="mb-3">
+            <label for="desc" class="form-label fs-5"><i>Description</i></label>
+            {{form.desc}}
+        </div>
+        <div class="mb-3">
+            <label for="created_by" class="form-label fs-5"><i>Posted By</i></label>
+            {{form.created_by}}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock content%}

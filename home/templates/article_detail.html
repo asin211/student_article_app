@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}{{article.title}}{% endblock title %}  
+{% block content %}
+<div class=" container min-vh-100">
+    <h2 class="mt-5 mb-4"><i>{{article.title}}</i></h2>
+    <div class="justify-content-between d-flex my-2">
+        <p class="blog-post-meta">{{article.date_created}} by <a href="#">{{article.created_by}}</a></p>
+    <p class="blog-post-meta"><b>Category:</b> <i>{{article.category_id}}</i> </a></p>
+    </div>
+    <hr>
+    <p>{{article.desc}}</p>
+</div>
+
+{% endblock %}

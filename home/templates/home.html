@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-5  min-vh-100">
+    <div class="row justify-content-center">
+        <div class="col-mb-4">
+            <h2 class="text-center mb-4"><i>Search Category</i></h2>
+            <form class="d-flex mb-4" action="" method="post" >
+                {% csrf_token %}  
+                <div class="input-group mb-4">
+                    <select name="category" class="form-select" id="categorySelect" aria-label="Category Select">
+                        <option selected>All Categories</option>
+                        {% for category in categories %}
+                        <option value={{category.category_id}} >{{category.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-outline-primary mx-2" type="submit">Go</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h2 class="text-center mb-4"> <i>Search Article</i></h2>
+            <form action="" method="post" class="d-flex mb-4">
+                {% csrf_token %}  
+                <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary mx-2" type="submit">Go</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container my-5">
+        {% if group == 'admins' or group == 'managers' %}
+        <div class="row justify-content mb-4">
+            <a href="{% url 'add-article' %}" class="btn btn-primary">Add Article</a>
+        </div>
+        {% endif %}
+
+        {% if articles %}
+        <ul class="list-group">
+            {% for article in articles %}
+            <li class="list-group-item justify-content-between d-flex my-2" >
+                <a class="btn" href="{% url 'article-detail' article.article_id %}">{{ article.title }}</a>
+                <div>
+                    {% if group == 'admins' or group == 'managers' %}
+                    <a href="{% url 'update-article' article.article_id %}" class="btn btn-sm btn-outline-secondary mx-2">Update</a>
+                    {% endif %}
+                    {% if group == 'admins' %}
+                    <a href="{% url 'delete-article' article.article_id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                    {% endif %}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <h5>No article found</h5>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
